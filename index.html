@@ -27,8 +27,9 @@
             bottom: 20px;
             left: 20px;
             margin: 0;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 10rem;
+            font-weight: 900;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.5);
         }
 
         #top-bar {
@@ -338,7 +339,7 @@
             }
 
             h1 {
-                font-size: 1.8rem;
+                font-size: 7rem;
                 bottom: 15px;
                 left: 15px;
             }
@@ -412,7 +413,7 @@
 
         @media (max-width: 500px) {
             h1 {
-                font-size: 1.6rem;
+                font-size: 4rem;
             }
 
             #game-info {
@@ -450,15 +451,15 @@
         </div>
         <div id="controls">
             <div id="mode-toggle">
-                <button id="btn-1p" class="mode-btn" onclick="setMode(1)">1 Player</button>
-                <button id="btn-2p" class="mode-btn active" onclick="setMode(2)">2 Players</button>
+                <button id="btn-1p" class="mode-btn active" onclick="setMode(1)">1 Player</button>
+                <button id="btn-2p" class="mode-btn" onclick="setMode(2)">2 Players</button>
             </div>
             <div id="time-control">
                 <select id="time-select" onchange="setTimeControl(this.value)">
-                    <option value="0.167">10 sec</option>
+                    <option value="0.1666">10 sec</option>
+                    <option value="0.333">20 sec</option>
                     <option value="0.5">30 sec</option>
                     <option value="1">1 min</option>
-                    <option value="3">3 min</option>
                     <option value="5" selected>5 min</option>
                     <option value="0">Unlimited</option>
                 </select>
@@ -532,10 +533,11 @@
 
         let board = [];
         let currentPlayer = 'red';
-        let gameMode = 2; // 1 = vs AI, 2 = vs human
+        let gameMode = 1; // 1 = vs AI, 2 = vs human
         let aiThinking = false;
         let lastOpponentMove = null;
         let gameOver = false;
+        let gameStarted = false;
 
         // Timer state
         let timeControl = 5; // minutes (0 = unlimited)
@@ -924,6 +926,13 @@
 
         function makeMove(row, col) {
             const wasRed = currentPlayer === 'red';
+
+            // Start timer on first move
+            if (!gameStarted) {
+                gameStarted = true;
+                startTimer();
+            }
+
             board[row][col] = currentPlayer;
             renderBoard();
 
@@ -1715,6 +1724,7 @@
 
             stopTimer();
             gameOver = false;
+            gameStarted = false;
             aiThinking = false;
             currentPlayer = 'red';
             lastOpponentMove = null;
@@ -1722,7 +1732,6 @@
             renderBoard();
             updateTurnIndicator();
             initTimers();
-            startTimer();
         }
 
         // Handle window resize
@@ -1740,7 +1749,6 @@
         renderBoard();
         updateTurnIndicator();
         initTimers();
-        startTimer();
     </script>
 </body>
 </html>
