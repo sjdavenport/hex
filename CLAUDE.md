@@ -20,7 +20,15 @@ A web-based implementation of the classic Hex board game with AI opponent.
 - 11x11 hexagonal grid
 - Red connects top to bottom, Blue connects left to right
 - Players alternate placing stones on empty hexes
-- First to create an unbroken chain wins
+- First to create an unbroken chain wins (or opponent runs out of time)
+
+## Game Features
+
+- 1-player (vs AI) and 2-player local modes
+- Chess-style game timer with configurable time controls (1, 2, 3, 5 minutes, or unlimited)
+- Timer pauses during AI thinking
+- Low-time warning animation when under 30 seconds
+- Responsive design for desktop and mobile
 
 ## AI Features
 
